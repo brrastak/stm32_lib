@@ -76,7 +76,7 @@ void InitADCTimer(void)
 }
 
 // Delay TIM4
-void Delay_ms(int time)
+void delay_ms(int time)
 {
     TIM4->CR1 = 0;
     TIM4->SR = 0;
@@ -89,7 +89,7 @@ void Delay_ms(int time)
         ;
     TIM4->CR1 &= ~TIM_CR1_CEN;
 }
-void Delay_us(int time)
+void delay_us(int time)
 {
     TIM4->CR1 = 0;
     TIM4->SR = 0;
