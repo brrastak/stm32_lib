@@ -26,8 +26,8 @@ void InitPWMTimer(void);
 // Init TIM3 for periodical ADC reading
 void InitADCTimer(void);
 // Delay TIM4
-void Delay_ms(int time);    // 32000ms max
-void Delay_us(int time);    // 32000us max
+void delay_ms(int time);    // 32000ms max
+void delay_us(int time);    // 32000us max
 // PWM on/off
 void PWMEnable(void);
 void PWMDisable(void);
