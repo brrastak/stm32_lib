@@ -40,10 +40,10 @@ inline void WriteNibble()
     nibble |= DISP_E_MASK;
     I2CWrite(I2C_DISP_ADDR, nibble, 1);
     
-    Delay_us(DELAY1_US);
+    delay_us(DELAY1_US);
     nibble &= ~DISP_E_MASK;
     I2CWrite(I2C_DISP_ADDR, nibble, 1);
-    Delay_us(DELAY1_US);
+    delay_us(DELAY1_US);
     
 #else
 
@@ -69,9 +69,9 @@ inline void WriteNibble()
         PinReset(PORTPIN(DISP_D7));
     
     PinSet(PORTPIN(DISP_E));
-    Delay_us(DELAY1_US);
+    delay_us(DELAY1_US);
     PinReset(PORTPIN(DISP_E));
-    Delay_us(DELAY1_US);
+    delay_us(DELAY1_US);
     
 #endif
 }
@@ -92,7 +92,7 @@ void InitDisp(void)
     nibble |=   0x20 |
                 0x10 * 0;   // DL   0:4 bits            1:8 bits
     WriteNibble();
-    Delay_us(DELAY2_US);
+    delay_us(DELAY2_US);
 
     // settings
     byte = 0x20;
@@ -100,7 +100,7 @@ void InitDisp(void)
                 0x08 * 1 |  // N    0:1 line            1:2 lines
                 0x04 * 0;   // F    0:5x8 dots          1:5x10 dots
     WriteCommandByte(byte);
-    Delay_us(DELAY2_US);
+    delay_us(DELAY2_US);
 
     // turn on
     byte = 0x08;
@@ -108,29 +108,29 @@ void InitDisp(void)
                 0x02 * 0 |  // C    0:cursor off        1:cursor on
                 0x01 * 0;   // B    0:cursor blink off  1:cursor blink on
     WriteCommandByte(byte);
-    Delay_us(DELAY2_US);
+    delay_us(DELAY2_US);
     
     // cursor / display
     byte = 0x04;
     byte |=     0x02 * 1 |  // I/D  0:cursor decrement  1:cursor increment
                 0x01 * 0;   // S    0:display shift off 1:display shift on
     WriteCommandByte(byte);
-    Delay_us(DELAY2_US);
+    delay_us(DELAY2_US);
 
     // cursor / display
     byte = 0x10;
     byte |=     0x08 * 0 |  // S/C  0:cursor move       1:display shift
                 0x04 * 1;   // R/L  0:shift to the left 1:shift to the right
     WriteCommandByte(byte);
-    Delay_us(DELAY2_US);
+    delay_us(DELAY2_US);
 	
 	ClrScr();
-    Delay_ms(2);
+    delay_ms(2);
 }
 
 void ResetDisplay()
 {
-    Delay_ms(15);
+    delay_ms(15);
     
     nibble &= ~DISP_RW_MASK;    // write
     nibble &= ~DISP_RS_MASK;    // command
@@ -140,19 +140,19 @@ void ResetDisplay()
     nibble |=   0x20 |
                 0x10 * 1;   // DL   0:4 bits            1:8 bits
     WriteNibble();
-    Delay_ms(5);
+    delay_ms(5);
     
     nibble &= 0x0f;
     nibble |=   0x20 |
                 0x10 * 1;   // DL   0:4 bits            1:8 bits
     WriteNibble();
-    Delay_us(100);
+    delay_us(100);
     
     nibble &= 0x0f;
     nibble |=   0x20 |
                 0x10 * 1;   // DL   0:4 bits            1:8 bits
     WriteNibble();
-    Delay_us(DELAY2_US);
+    delay_us(DELAY2_US);
 }
 
 void WriteCommandByte(uint8_t byte)      // RS = 0
