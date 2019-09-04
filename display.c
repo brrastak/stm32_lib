@@ -189,7 +189,7 @@ void ClrScr(void)
 void MoveToLine2(void)
 {
     WriteCommandByte(0xC0);
-    Delay_us(DELAY2_US);
+    delay_us(DELAY2_US);
 }
 
 void MoveScreen(bool dir)
@@ -198,13 +198,13 @@ void MoveScreen(bool dir)
         WriteCommandByte(0x18);
     else
         WriteCommandByte(0x1C);
-    Delay_us(DELAY2_US);
+    delay_us(DELAY2_US);
 }
 
 void WriteChar(char c)
 {
 	WriteDataByte(c);
-    Delay_us(DELAY2_US);
+    delay_us(DELAY2_US);
 }
 
 void WriteString(char * str, int n)
