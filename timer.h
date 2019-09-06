@@ -9,13 +9,6 @@
 // every 0.5 ms
 #define SYS_TIMER_TICK  	    (F_CPU/1000-1)  // 1kHz
 
-// Timer modes
-#define TIM_CounterMode_Up                  0x00
-#define TIM_CounterMode_Down                0x10
-#define TIM_CounterMode_CenterAligned1      0x20
-#define TIM_CounterMode_CenterAligned2      0x40
-#define TIM_CounterMode_CenterAligned3      0x60
-
 // Ticks
 extern volatile uint32_t sys_tick;
 
