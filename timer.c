@@ -40,8 +40,10 @@ void InitSysTick(void)
 void InitPWMTimer(void)
 {
     // Timer
-    TIM2->CR1 = TIM_CounterMode_Up 
-              | TIM_CR1_ARPE;           // auto-reload preload enable
+    TIM2->CR1 = TIM_CR1_ARPE    * 1 |   // Auto-reload preload enable
+                TIM_CR1_CMS_0   * 0 |   // Center-aligned mode selection : edge-aligned mode
+                TIM_CR1_CMS_1   * 0 |
+                TIM_CR1_DIR     * 0;    // Direction : upcounter
     TIM2->PSC = 359;                    // CK_CNT = 200kHz
     TIM2->ARR = 39;                     // 5kHz
     TIM2->EGR = TIM_EGR_UG;             // update
@@ -63,8 +65,10 @@ void PWMDisable(void)
 void InitADCTimer(void)
 {
     // Timer
-    TIM3->CR1 = TIM_CounterMode_Up 
-              | TIM_CR1_ARPE;           // auto-reload preload enable
+    TIM3->CR1 = TIM_CR1_ARPE    * 1 |   // Auto-reload preload enable
+                TIM_CR1_CMS_0   * 0 |   // Center-aligned mode selection : edge-aligned mode
+                TIM_CR1_CMS_1   * 0 |
+                TIM_CR1_DIR     * 0;    // Direction : upcounter
     TIM3->CR2 |= 0x20;                  // TRGO on update event
     TIM3->PSC = 3599;                   // CK_CNT = 20kHz
     TIM3->ARR = 399;                    // 50 Hz
