@@ -8,9 +8,11 @@
 // STM32F103
 #include "stm32f10x.h"
 
+// cstd
+#include <stdbool.h>
+
 //user
 #include "UART.h"
-#include <stdbool.h>
 
 // Local variables
 // Data
