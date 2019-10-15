@@ -1,3 +1,10 @@
+/*
+    1. Configure pins as alternate function push-pull
+    2. Init RCC: RCC->APB1ENR |= RCC_APB1ENR_USARTxEN;
+    3. Enable interrupt
+    4. Call function InitUART
+*/
+
 // STM32F103
 #include "stm32f10x.h"
 
