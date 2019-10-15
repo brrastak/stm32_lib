@@ -9,14 +9,14 @@
 
 // Local variables
 // Data
-uint8_t* transmit_buf;
-uint8_t* receive_buf;
+static uint8_t* transmit_buf;
+static uint8_t* receive_buf;
 // Number of data
-int to_transmit = 0;
-int to_receive = 0;
+static int to_transmit = 0;
+static int to_receive = 0;
 // Flags
-volatile bool transmitted = true;
-volatile bool received = true;
+static volatile bool transmitted = true;
+static volatile bool received = true;
 
 // Interrupt
 void USART2_IRQHandler(void)
