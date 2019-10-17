@@ -22,15 +22,19 @@ static volatile bool received = true;
 void USART2_IRQHandler(void)
 {
     // Transmit data register empty
-    if ( ((USART2->SR & USART_SR_TXE) != 0) && (to_transmit != 0) ) {
-        USART2->DR = transmit_buf[0];
-        transmit_buf++;
-        to_transmit--;
+    if ( (USART2->SR & USART_SR_TXE) != 0 ) {
+        if (to_transmit != 0) {
+            USART2->DR = transmit_buf[0];
+            transmit_buf++;
+            to_transmit--;
+        }
+        else
+            USART2->CR1 &= ~USART_CR1_TXEIE;    // Transmit data register empty interrupt disable
     }
     // Transmission complete
     if ((USART2->SR & USART_SR_TC) != 0) {
         transmitted = true;
-        USART2->CR1 &= ~USART_CR1_TXEIE;    // Transmit data register empty interrupt disable
+        USART2->CR1 &= ~USART_SR_TC;    // Transmission complete interrupt disable
     }
     // Received data register not empty
     if ((USART2->SR & USART_CR1_RXNEIE) != 0) {
@@ -55,6 +59,7 @@ void TransmitUART(uint8_t* buf, int num)
     
     USART2->DR = transmit_buf[0];
     USART2->CR1 |=  USART_CR1_TXEIE;    // Transmit data register empty interrupt enable
+    USART2->CR1 |= USART_CR1_TCIE;      // Transmission complete interrupt enable
     
     transmit_buf++;
 }
