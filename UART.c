@@ -57,7 +57,7 @@ void TransmitUART(uint8_t* buf, int num)
     to_transmit = num - 1;
     transmitted = false;
     
-    USART2->CR1 |= USART_CR1_TXEIE;    // Transmit data register empty interrupt enable
+    USART2->CR1 |= USART_CR1_TXEIE;     // Transmit data register empty interrupt enable
     USART2->CR1 |= USART_CR1_TCIE;      // Transmission complete interrupt enable
     USART2->DR = transmit_buf[0];
     
