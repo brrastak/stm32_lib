@@ -22,22 +22,33 @@ static volatile bool received = true;
 void USART2_IRQHandler(void)
 {
     // Transmit data register empty
-    if ( (USART2->SR & USART_SR_TXE) != 0 ) {
+    if ( ((USART2->SR & USART_SR_TXE) != 0 ) &&((USART2->CR1 & USART_CR1_TXEIE) != 0) ) {
         if (to_transmit != 0) {
             USART2->DR = transmit_buf[0];
             transmit_buf++;
             to_transmit--;
         }
         else
-            USART2->CR1 &= ~USART_CR1_TXEIE;    // Transmit data register empty interrupt disable
+            USART2->CR1 &= ~USART_CR1_TXEIE;    // transmit data register empty interrupt disable
     }
     // Transmission complete
-    if ((USART2->SR & USART_SR_TC) != 0) {
+    if ( ((USART2->SR & USART_SR_TC) != 0) &&((USART2->CR1 & USART_CR1_TCIE) != 0) ) {
         transmitted = true;
-        USART2->CR1 &= ~USART_SR_TC;    // Transmission complete interrupt disable
+        USART2->CR1 &= ~USART_CR1_TCIE;         // transmission complete interrupt disable
     }
     // Received data register not empty
     if ((USART2->SR & USART_CR1_RXNEIE) != 0) {
+        if (received == true) {
+            (void) USART2->DR;  // receive start bit
+            return;
+        }
+        receive_buf[0] = USART2->DR;
+        receive_buf++;
+        to_receive--;
+        if (to_receive == 0) {
+            received = true;
+            USART2->CR1 &= ~USART_CR1_RXNEIE;   // received data register not empty interrupt disable
+        }
     }
 }
 
@@ -46,10 +57,11 @@ void InitUART(void)
     USART2->CR1 |= USART_CR1_UE;    // USART enable
     USART2->BRR = USART9600;        // set baud rate
     USART2->CR1 |= USART_CR1_TE;    // transmitter enable
+    USART2->CR1 |= USART_CR1_RE;    // receiver enable
     // Interrupts
-    USART2->CR1 |=  USART_CR1_TXEIE * 0 |   // Transmit data register empty interrupt enable
-                    USART_CR1_TCIE  * 0 |   // Transmission complete interrupt enable
-                    USART_CR1_RXNEIE * 0;   // Received data register not empty interrupt enable
+    USART2->CR1 |=  USART_CR1_TXEIE     * 0 |   // transmit data register empty interrupt enable
+                    USART_CR1_TCIE      * 0 |   // transmission complete interrupt enable
+                    USART_CR1_RXNEIE    * 1;    // received data register not empty interrupt enable
 }
 void TransmitUART(uint8_t* buf, int num)
 {
@@ -57,8 +69,8 @@ void TransmitUART(uint8_t* buf, int num)
     to_transmit = num - 1;
     transmitted = false;
     
-    USART2->CR1 |= USART_CR1_TXEIE;     // Transmit data register empty interrupt enable
-    USART2->CR1 |= USART_CR1_TCIE;      // Transmission complete interrupt enable
+    USART2->CR1 |= USART_CR1_TXEIE;     // transmit data register empty interrupt enable
+    USART2->CR1 |= USART_CR1_TCIE;      // transmission complete interrupt enable
     USART2->DR = transmit_buf[0];
     
     transmit_buf++;
