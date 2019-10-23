@@ -71,10 +71,10 @@ void TransmitUART(uint8_t* buf, int num)
     transmitted = false;
     
     USART2->DR = transmit_buf[0];
+    transmit_buf++;
+    
     USART2->CR1 |= USART_CR1_TXEIE;     // transmit data register empty interrupt enable
     USART2->CR1 |= USART_CR1_TCIE;      // transmission complete interrupt enable
-    
-    transmit_buf++;
 }
 void ReceiveUART(uint8_t* buf, int num)
 {
