@@ -48,7 +48,7 @@ void SPI1_IRQHandler(void)
 void InitSPI(void)
 {
     // Configuring SPI1 in master mode
-    SPI1->CR1 =     SPI_CR1_BR_0        * 1 |   // baud rate = f_PCLK / 256
+    SPI1->CR1 =     SPI_CR1_BR_0        * 1 |   // baud rate = f_PCLK / (2 * 2^BR)
                     SPI_CR1_BR_1        * 0 |
                     SPI_CR1_BR_2        * 0;
     SPI1->CR1 |=    SPI_CR1_CPOL        * 0 |   // clock polarity = 0
