@@ -42,12 +42,13 @@ void USART2_IRQHandler(void)
             (void) USART2->DR;  // receive start bit
             return;
         }
-        receive_buf[0] = USART2->DR;
-        receive_buf++;
-        to_receive--;
+        if (to_receive != 0) {
+            receive_buf[0] = USART2->DR;
+            receive_buf++;
+            to_receive--;
+        }
         if (to_receive == 0) {
             received = true;
-            USART2->CR1 &= ~USART_CR1_RXNEIE;   // received data register not empty interrupt disable
         }
     }
 }
@@ -69,9 +70,9 @@ void TransmitUART(uint8_t* buf, int num)
     to_transmit = num - 1;
     transmitted = false;
     
+    USART2->DR = transmit_buf[0];
     USART2->CR1 |= USART_CR1_TXEIE;     // transmit data register empty interrupt enable
     USART2->CR1 |= USART_CR1_TCIE;      // transmission complete interrupt enable
-    USART2->DR = transmit_buf[0];
     
     transmit_buf++;
 }
