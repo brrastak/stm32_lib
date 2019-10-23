@@ -1,8 +1,7 @@
 /*
     1. Define A_PIN and B_PIN, configure as floating input
-    2. Call InitEncoder
-    3. Call GetEncoder about every 1 ms to get its state
-    4. Call ValEncoder to find current value
+    2. Call GetEncoder about every 1 ms to get its state
+    3. Call ValEncoder to find current value
 */
 
 // cstd
