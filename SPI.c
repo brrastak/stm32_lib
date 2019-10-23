@@ -33,6 +33,15 @@ void SPI1_IRQHandler(void)
     }
     // Received data register not empty
     if ((SPI1->SR & SPI_SR_RXNE) != 0) {
+        if (to_receive != 0) {
+            receive_buf[0] = SPI1->DR;
+            receive_buf++;
+            to_receive--;
+        }
+        else {
+            (void)SPI1->DR;     // clear interrupt flag
+            received = true;
+        }
     }
 }
 
@@ -40,8 +49,8 @@ void InitSPI(void)
 {
     // Configuring SPI1 in master mode
     SPI1->CR1 =     SPI_CR1_BR_0        * 1 |   // baud rate = f_PCLK / 256
-                    SPI_CR1_BR_1        * 1 |
-                    SPI_CR1_BR_2        * 1;
+                    SPI_CR1_BR_1        * 0 |
+                    SPI_CR1_BR_2        * 0;
     SPI1->CR1 |=    SPI_CR1_CPOL        * 0 |   // clock polarity = 0
                     SPI_CR1_CPHA        * 0 |   // clock phase = 0
                     SPI_CR1_DFF         * 1 |   // 16-bit data frame format
@@ -50,7 +59,9 @@ void InitSPI(void)
                     SPI_CR1_SSM         * 1 |   // software NSS enable
                     SPI_CR1_SSI         * 1;    // software NSS up
     SPI1->CR2 =     SPI_CR2_SSOE        * 1;    // SS output enable
-    SPI1->CR1 |=    SPI_CR1_SPE;    // SPI enable
+    
+    SPI1->CR1 |=    SPI_CR1_SPE;        // SPI enable
+    SPI1->CR2 |=    SPI_CR2_RXNEIE;     // RX buffer not empty interrupt enable
     
     ChipDeselectSPI();
 }
@@ -62,18 +73,15 @@ void TransmitSPI(uint16_t* buf, int num)
     ChipSelectSPI();
     
     SPI1->DR = transmit_buf[0];
-    SPI1->CR2 |= SPI_CR2_TXEIE;     // TX buffer empty interrupt enable
-    
     transmit_buf++;
+    
+    SPI1->CR2 |= SPI_CR2_TXEIE;     // TX buffer empty interrupt enable
 }
 void ReceiveSPI(uint16_t* buf, int num)
 {
     receive_buf = buf;
     to_receive = num;
     received = false;
-    
-    // In software NSS mode
-    //ChipSelectSPI();
 }
 bool SPItransmitted(void)
 {
