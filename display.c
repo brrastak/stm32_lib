@@ -48,29 +48,29 @@ inline void WriteNibble()
 #else
 
     if (nibble & DISP_RS_MASK)
-        PinSet(PORTPIN(DISP_RS));
+        PinSet(DISP_RS_PIN);
     else
-        PinReset(PORTPIN(DISP_RS));
+        PinReset(DISP_RS_PIN);
     if (nibble & 0x10)
-        PinSet(PORTPIN(DISP_D4));
+        PinSet(DISP_D4_PIN);
     else
-        PinReset(PORTPIN(DISP_D4));
+        PinReset(DISP_D4_PIN);
     if (nibble & 0x20)
-        PinSet(PORTPIN(DISP_D5));
+        PinSet(DISP_D5_PIN);
     else
-        PinReset(PORTPIN(DISP_D5));
+        PinReset(DISP_D5_PIN);
     if (nibble & 0x40)
-        PinSet(PORTPIN(DISP_D6));
+        PinSet(DISP_D6_PIN);
     else
-        PinReset(PORTPIN(DISP_D6));
+        PinReset(DISP_D6_PIN);
     if (nibble & 0x80)
-        PinSet(PORTPIN(DISP_D7));
+        PinSet(DISP_D7_PIN);
     else
-        PinReset(PORTPIN(DISP_D7));
+        PinReset(DISP_D7_PIN);
     
-    PinSet(PORTPIN(DISP_E));
+    PinSet(DISP_E_PIN);
     delay_us(DELAY1_US);
-    PinReset(PORTPIN(DISP_E));
+    PinReset(DISP_E_PIN);
     delay_us(DELAY1_US);
     
 #endif
