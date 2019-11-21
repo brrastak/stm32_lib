@@ -37,6 +37,8 @@ void InitInterrupt(void)
     NVIC_EnableIRQ(I2C2_EV_IRQn);
     // USART2
     NVIC_EnableIRQ(USART2_IRQn);
+    // AFIO
+    //RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
 }
 void InitGPIO(void)
 {
