@@ -3,6 +3,8 @@
     2. Init RCC: RCC->APB1ENR |= RCC_APB1ENR_USARTxEN;
     3. Enable interrupt
     4. Call function InitUART
+    
+    BRR for UART1 = (BRR for UART2 & UART3)  * 2
 */
 
 // STM32F103
