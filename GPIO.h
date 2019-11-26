@@ -15,13 +15,13 @@
 #define PIN_MODE_2MHZ_AFOD      0x0e    // alternate function open-drain; speed 2 MHz
 
 // GPIO
-void GPIOMode(GPIO_TypeDef* port, int pin, int mode);
-bool PinState(GPIO_TypeDef* port, int pin);
-void PinSet(GPIO_TypeDef* port, int pin);
-void PinReset(GPIO_TypeDef* port, int pin);
-void PinSwitch(GPIO_TypeDef* port, int pin);
-void MulPinSet(GPIO_TypeDef* port, int mask);
-void MulPinReset(GPIO_TypeDef* port, int mask);
+void SetGpioMode(GPIO_TypeDef* port, int pin, int mode);
+bool GetPinState(GPIO_TypeDef* port, int pin);
+void SetPin(GPIO_TypeDef* port, int pin);
+void ResetPin(GPIO_TypeDef* port, int pin);
+void SwitchPin(GPIO_TypeDef* port, int pin);
+void SetMulPin(GPIO_TypeDef* port, int mask);
+void ResetMulPin(GPIO_TypeDef* port, int mask);
 
 
 #endif
