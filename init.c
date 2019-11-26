@@ -6,7 +6,7 @@
 #include "main.h"
 #include "gpio.h"
 
-void InitRCC(void)
+void InitRcc(void)
 {
     // port A
     RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;
@@ -40,7 +40,7 @@ void InitInterrupt(void)
     // AFIO
     //RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
 }
-void InitGPIO(void)
+void InitGpio(void)
 {
     //GPIOMode(PWM_PORT, PWM_PIN, PIN_MODE_2MHZ_OPP);
     GPIOMode(BUTN0_PORT, BUTN0_PIN, PIN_MODE_IFLOAT);
