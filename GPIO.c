@@ -25,10 +25,10 @@ inline void ResetPin(GPIO_TypeDef* port, int pin)
 }
 inline void SwitchPin(GPIO_TypeDef* port, int pin)
 {
-    if (PinState(port, pin))
-        PinReset(port, pin);
+    if (GetPinState(port, pin))
+        ResetPin(port, pin);
     else
-        PinSet(port, pin);
+        SetPin(port, pin);
 }
 inline void SetMulPin(GPIO_TypeDef* port, int mask)
 {
