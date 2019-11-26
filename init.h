@@ -6,12 +6,12 @@
 
 // Clock source select;
 // Peripheral clock enable
-void InitRCC(void);
+void InitRcc(void);
 
 // Init interrupts
 void InitInterrupt(void);
 
 // Init GPIO
-void InitGPIO(void);
+void InitGpio(void);
 
 #endif
