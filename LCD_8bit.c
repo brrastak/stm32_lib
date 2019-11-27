@@ -70,27 +70,22 @@ void HandleLcd()
     switch (com_state)
     {
     case stop_state:
-        //TransmitUART("0\n\r", 3);
         break;
     case start_reading_state:
         com_state = end_reading_state;
         StartReading();
-        //TransmitUART("1\n\r", 3);
         break;
     case start_writing_state:
         com_state = end_writing_state;
         StartWriting();
-        //TransmitUART("2\n\r", 3);
         break;
     case end_reading_state:
         com_state = start_reading_state;
         EndReading();
-        //TransmitUART("3\n\r", 3);
         break;
     case end_writing_state:
         com_state = start_writing_state;
         EndWriting();
-        //TransmitUART("4\n\r", 3);
         break;
     }
 }
