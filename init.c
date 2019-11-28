@@ -39,6 +39,8 @@ void InitInterrupt(void)
     NVIC_EnableIRQ(USART2_IRQn);
     // AFIO
     //RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
+    // DMA1
+    RCC->AHBENR |= RCC_AHBENR_DMA1EN;
 }
 void InitGpio(void)
 {
