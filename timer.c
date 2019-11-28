@@ -47,6 +47,8 @@ void InitPWMTimer(void)
     TIM2->PSC = 359;                    // CK_CNT = 200kHz
     TIM2->ARR = 39;                     // 5kHz
     TIM2->EGR = TIM_EGR_UG;             // update
+    // DMA
+    TIM2->DIER  |= TIM_DIER_UDE;        // update DMA request enable
     // PWM
     TIM2->CCMR1 = 0x60;                 // PWM mode 1
     TIM2->CCER |= 0x01;                 // out enable & active high
