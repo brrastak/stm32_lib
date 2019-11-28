@@ -24,6 +24,10 @@ void InitRcc(void)
     RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
     // USART2
     RCC->APB1ENR |= RCC_APB1ENR_USART2EN;
+    // AFIO
+    RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
+    // DMA1
+    RCC->AHBENR |= RCC_AHBENR_DMA1EN;
 }
 void InitInterrupt(void)
 {
@@ -37,10 +41,6 @@ void InitInterrupt(void)
     NVIC_EnableIRQ(I2C2_EV_IRQn);
     // USART2
     NVIC_EnableIRQ(USART2_IRQn);
-    // AFIO
-    //RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
-    // DMA1
-    RCC->AHBENR |= RCC_AHBENR_DMA1EN;
 }
 void InitGpio(void)
 {
