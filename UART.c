@@ -53,7 +53,7 @@ void USART2_IRQHandler(void)
     }
 }
 
-void InitUART(void)
+void InitUart(void)
 {
     USART2->CR1 |= USART_CR1_UE;    // USART enable
     USART2->BRR = USART9600;        // set baud rate
@@ -64,7 +64,7 @@ void InitUART(void)
                     USART_CR1_TCIE      * 0 |   // transmission complete interrupt enable
                     USART_CR1_RXNEIE    * 1;    // received data register not empty interrupt enable
 }
-void TransmitUART(uint8_t* buf, int num)
+void TransmitUart(uint8_t* buf, int num)
 {
     transmit_buf = buf;
     to_transmit = num - 1;
@@ -76,17 +76,17 @@ void TransmitUART(uint8_t* buf, int num)
     USART2->CR1 |= USART_CR1_TXEIE;     // transmit data register empty interrupt enable
     USART2->CR1 |= USART_CR1_TCIE;      // transmission complete interrupt enable
 }
-void ReceiveUART(uint8_t* buf, int num)
+void ReceiveUart(uint8_t* buf, int num)
 {
     receive_buf = buf;
     to_receive = num;
     received = false;
 }
-bool UARTtransmitted(void)
+bool TransmittedUart(void)
 {
     return transmitted;
 }
-bool UARTreceived(void)
+bool ReceivedUart(void)
 {
     return received;
 }
