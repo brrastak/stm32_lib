@@ -15,15 +15,15 @@ extern volatile uint32_t sys_tick;
 // Init SysTick timer
 void InitSysTick(void);
 // Init TIM2 for PWM generation
-void InitPWMTimer(void);
+void InitTim2(void);
 // Init TIM3 for periodical ADC reading
-void InitADCTimer(void);
+void InitTim3(void);
 // Delay TIM4
 void delay_ms(int time);    // 32000ms max
 void delay_us(int time);    // 32000us max
-// PWM on/off
-void PWMEnable(void);
-void PWMDisable(void);
+// TIM2 on/off
+void EnableTim2(void);
+void DisableTim2(void);
 
 // SysTick timer interrupt
 void SysTick_Handler(void);
