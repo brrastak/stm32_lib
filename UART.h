@@ -21,10 +21,10 @@
 
 void USART2_IRQHandler(void);
 
-void InitUART(void);
-void TransmitUART(uint8_t* buf, int num);
-void ReceiveUART(uint8_t* buf, int num);
-bool UARTtransmitted(void);
-bool UARTreceived(void);
+void InitUart(void);
+void TransmitUart(uint8_t* buf, int num);
+void ReceiveUart(uint8_t* buf, int num);
+bool TransmittedUart(void);
+bool ReceivedUart(void);
 
 #endif
