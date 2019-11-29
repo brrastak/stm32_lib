@@ -37,7 +37,7 @@ void InitSysTick(void)
                     SysTick_CTRL_TICKINT_Msk   |    // interrupt enable
                     SysTick_CTRL_ENABLE_Msk;
 }
-void InitPWMTimer(void)
+void InitTim2(void)
 {
     // Timer
     TIM2->CR1 = TIM_CR1_ARPE    * 1 |   // Auto-reload preload enable
@@ -56,15 +56,15 @@ void InitPWMTimer(void)
     // Interrupt
     TIM2->DIER |= TIM_DIER_UIE;         // update interrupt enable
 }
-void PWMEnable(void)
+void EnableTim2(void)
 {
     TIM2->CR1 |= TIM_CR1_CEN;
 }
-void PWMDisable(void)
+void DisableTim2(void)
 {
     TIM2->CR1 &= ~TIM_CR1_CEN;
 }
-void InitADCTimer(void)
+void InitTim3(void)
 {
     // Timer
     TIM3->CR1 = TIM_CR1_ARPE    * 1 |   // Auto-reload preload enable
