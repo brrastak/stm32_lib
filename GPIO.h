@@ -17,6 +17,7 @@
 
 #define PIN_MODE_2MHZ_AFPP      0x0a    // alternate function push-pull; speed 2 MHz
 #define PIN_MODE_2MHZ_AFOD      0x0e    // alternate function open-drain; speed 2 MHz
+#define PIN_MODE_10MHZ_AFPP     0x09    // alternate function push-pull; speed 10 MHz
 
 // GPIO
 void SetGpioMode(GPIO_TypeDef* port, int pin, int mode);
