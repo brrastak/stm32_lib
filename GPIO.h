@@ -9,8 +9,12 @@
 
 // Pin modes
 #define PIN_MODE_IANALOG        0x00    // in analog
-#define PIN_MODE_2MHZ_OPP       0x02    // out push-pull; speed 2 MHz
 #define PIN_MODE_IFLOAT         0x04    // in floating
+
+#define PIN_MODE_2MHZ_OPP       0x02    // out push-pull; speed 2 MHz
+#define PIN_MODE_10MHZ_OPP      0x01    // out push-pull; speed 10 MHz
+#define PIN_MODE_50MHZ_OPP      0x03    // out push-pull; speed 50 MHz
+
 #define PIN_MODE_2MHZ_AFPP      0x0a    // alternate function push-pull; speed 2 MHz
 #define PIN_MODE_2MHZ_AFOD      0x0e    // alternate function open-drain; speed 2 MHz
 
