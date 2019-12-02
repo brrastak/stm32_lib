@@ -22,5 +22,7 @@ void InitDma(void);
 void TransmitDma(uint16_t * buf, int buf_size, int num);
 void DisableDma(void);
 
+bool TransmittedDma(void);
+
 
 #endif

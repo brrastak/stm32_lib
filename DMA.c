@@ -13,6 +13,7 @@
 
 static int to_transmit;
 static int buf_length;
+static bool transmitted = true;
 
 
 // Interrupt handler
@@ -28,6 +29,7 @@ void DMA1_Channel2_IRQHandler()
             // Disable channel
             DMA1_Channel2->CCR &= ~DMA_CCR2_EN;
             DisableTim2();
+            transmitted = true;
             return;
         }
         
@@ -91,8 +93,13 @@ void TransmitDma(uint16_t * buf, int buf_size, int num)
     
     EnableTim2();
     
+    transmitted = false;
 }
 void DisableDma(void)
 {
     DMA1_Channel2->CCR &= ~DMA_CCR2_EN;
+}
+bool TransmittedDma()
+{
+    return transmitted;
 }
