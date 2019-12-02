@@ -1,7 +1,8 @@
 /*
+    1. Define and configure PARALLEL_PORT
     2. Init RCC: RCC->AHBENR |= RCC_AHBENR_DMA1EN;
-    4. Call function InitDMA
-
+    3. Enable DMAx_Channely interrupt
+    4. Call function InitDMA();
 */
 
 // STM32F103
@@ -16,7 +17,10 @@
 extern uint32_t one[10];
 extern uint32_t two[10];
 
-void InitDma(uint32_t mem, uint32_t periph);
+void InitDma(void);
+// From buf to PARALLEL_PORT
+void TransmitDma(uint16_t * buf, int buf_size, int num);
+void DisableDma(void);
 
 
 #endif
