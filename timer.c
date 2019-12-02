@@ -50,9 +50,12 @@ void InitTim2(void)
     // DMA
     TIM2->DIER  |= TIM_DIER_UDE;        // update DMA request enable
     // PWM
-    TIM2->CCMR1 = 0x60;                 // PWM mode 1
-    TIM2->CCER |= 0x01;                 // out enable & active high
-    TIM2->CCR1 = 0;                     // duty time = 50%
+    TIM2->CCMR2 =   TIM_CCMR2_OC4M_0    * 1 |   // C4 PWM mode 2
+                    TIM_CCMR2_OC4M_1    * 1 |
+                    TIM_CCMR2_OC4M_2    * 1;
+    TIM2->CCER  =   TIM_CCER_CC4E       * 1 |   // C4 out enable
+                    TIM_CCER_CC4P       * 0;    // C4 active high
+    TIM2->CCR4  = 20;                           // duty time = 50%
     // Interrupt
     TIM2->DIER |= TIM_DIER_UIE;         // update interrupt enable
 }
