@@ -14,12 +14,10 @@
 #ifndef __DMA_H__
 #define __DMA_H__
 
-extern uint32_t one[10];
-extern uint32_t two[10];
 
 void InitDma(void);
 // From buf to PARALLEL_PORT
-void TransmitDma(uint16_t * buf, int buf_size, int num);
+void TransmitDma(uint16_t * buf, uint16_t buf_size, uint32_t num);
 void DisableDma(void);
 
 bool TransmittedDma(void);

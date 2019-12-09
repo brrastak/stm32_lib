@@ -8,11 +8,12 @@
 #include "DMA.h"
 #include "main.h"
 #include "timer.h"
+#include "LCD_8bit.h"
 
 // Using channel 2 of DMA1 with TIM2 DMA request
 
-static int to_transmit;
-static int buf_length;
+static uint32_t to_transmit;
+static uint16_t buf_length;
 static bool transmitted = true;
 
 
@@ -30,6 +31,9 @@ void DMA1_Channel2_IRQHandler()
             DMA1_Channel2->CCR &= ~DMA_CCR2_EN;
             DisableTim2();
             transmitted = true;
+            
+            DisableDma();
+            
             return;
         }
         
@@ -70,7 +74,7 @@ void InitDma()
                             DMA_CCR1_TCIE       * 1;    // transfer complete interrupt enable
 }
 // From buf to PARALLEL_PORT
-void TransmitDma(uint16_t * buf, int buf_size, int num)
+void TransmitDma(uint16_t * buf, uint16_t buf_size, uint32_t num)
 {
     buf_length = buf_size;
     
