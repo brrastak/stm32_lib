@@ -25,6 +25,6 @@ typedef struct
     bool was_unpressed;
 }
 btn_t;
-void BtnCheck(btn_t*);
+void CheckBtn(btn_t*);
 
 #endif
