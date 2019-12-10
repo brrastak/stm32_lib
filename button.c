@@ -4,7 +4,7 @@
 //user
 #include "button.h"
 
-void BtnCheck(btn_t* butn)
+void CheckBtn(btn_t* butn)
 {
     bool prev = butn->is_pressed;
     if (!PinState(butn->port, butn->pin))
