@@ -1,6 +1,8 @@
 /*
     1. Configure button pins
-    2. Create button_t variables
+    2. Create btn_t variables
+        max_count should be about 20 for 20ms debouncing
+        btn_t BtnL0 = {BTN_L0, 0, 20, false, false, false};
     3. Call ButtonCheck about every 1ms for every variable
 */
 
@@ -25,6 +27,12 @@ typedef struct
     bool was_unpressed;
 }
 btn_t;
+
+// Increase counter and set button state when counter == max_count (debouncing)
 void CheckBtn(btn_t*);
+// Get button state
+bool IsPressed(btn_t*);
+// Get was_pressed button state and reset it
+bool WasPressed(btn_t*);
 
 #endif
