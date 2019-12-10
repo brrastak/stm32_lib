@@ -37,6 +37,12 @@ static rgb_t back_color;
 // Current font
 static font_t current_font = verdana34x32_font;
 
+// Local functions
+// Recognize '\n' and '\r'
+bool IsSpecialSymbol(char c);
+// Proceed '\n' and '\r'
+void ProceedSpecialSymbol(char c, uint16_t start_x);
+
 // Set coordinates to place char
 // otherwise the char will be placed next to the previous
 void SetCoordinatesLcd(uint16_t x, uint16_t y)
@@ -109,31 +115,74 @@ void PrintStringLcd(char * str)
     
     while (str[i] != 0) {
         // Special symbols proceed
-        if (str[i] == '\n') {
-            current_y += (FontHeight[current_font] * 3 / 2);
-            i++;
-            continue;
-        }
-        if (str[i] == '\r') {
-            current_x = start_x;
-            i++;
-            continue;
-        }
-        
-        PrintCharLcd(str[i]);
+        if (IsSpecialSymbol(str[i]))
+            ProceedSpecialSymbol(str[i], start_x);
+        else
+            PrintCharLcd(str[i]);
         
         i++;
     }
+    
 }
 // Print string (null-terminated) and go to the next line
 void PrintStringLnLcd(char * str)
 {
+    int i = 0;
+    uint16_t start_x = current_x;
+    
+    while (str[i] != 0) {
+        // Special symbols proceed
+        if (IsSpecialSymbol(str[i]))
+            ProceedSpecialSymbol(str[i], start_x);
+        else
+            PrintCharLcd(str[i]);
+        
+        i++;
+    }
+    ProceedSpecialSymbol('\n', start_x);
+    ProceedSpecialSymbol('\r', start_x);
 }
 // Print num of chars
 void PrintLineLcd(char * str, int num)
 {
+    int i;
+    uint16_t start_x = current_x;
+    
+    for (i = 0; i < num; i++) {
+        // Special symbols proceed
+        if (IsSpecialSymbol(str[i]))
+            ProceedSpecialSymbol(str[i], start_x);
+        else
+            PrintCharLcd(str[i]);
+    }
 }
 // Print num of chars and go to the next line
 void PrintLineLnLcd(char * str, int num)
 {
+    int i;
+    uint16_t start_x = current_x;
+    
+    for (i = 0; i < num; i++) {
+        // Special symbols proceed
+        if (IsSpecialSymbol(str[i]))
+            ProceedSpecialSymbol(str[i], start_x);
+        else
+            PrintCharLcd(str[i]);
+    }
+    ProceedSpecialSymbol('\n', start_x);
+    ProceedSpecialSymbol('\r', start_x);
 }
+// Recognize '\n' and '\r'
+bool IsSpecialSymbol(char c)
+{
+    return ((c == '\n')||(c == '\r'));
+}
+// Proceed '\n' and '\r'
+void ProceedSpecialSymbol(char c, uint16_t start_x)
+{
+    if (c == '\r')
+        current_x = start_x;
+    if (c == '\n')
+        current_y -= (FontHeight[current_font] * 3 / 2);
+}
+
