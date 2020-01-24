@@ -16,8 +16,8 @@
 #define __SPI_H__
 
 void InitSpi(void);
-void TransmitSpi(uint8_t* buf, int num);
-void ReceiveSpi(uint8_t* buf, int num);
+void TransmitSpi(uint16_t* buf, int num);
+void ReceiveSpi(uint16_t* buf, int num);
 bool TransmittedSpi(void);
 bool ReceivedSpi(void);
 void SelectChipSpi(void);
