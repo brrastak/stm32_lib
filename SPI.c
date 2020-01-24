@@ -7,6 +7,7 @@
 //user
 #include "SPI.h"
 #include "main.h"
+#include "GPIO.h"
 
 // Local variables
 // Data
@@ -15,8 +16,6 @@ static uint16_t* receive_buf;
 // Number of data
 static int to_transmit = 0;
 static int to_receive = 0;
-// Flags
-static volatile bool received = true;
 
 // Interrupt
 void SPI1_IRQHandler(void)
@@ -40,12 +39,11 @@ void SPI1_IRQHandler(void)
         }
         else {
             (void)SPI1->DR;     // clear interrupt flag
-            received = true;
         }
     }
 }
 
-void InitSPI(void)
+void InitSpi(void)
 {
     // Configuring SPI1 in master mode
     SPI1->CR1 =     SPI_CR1_BR_0        * 1 |   // baud rate = f_PCLK / (2 * 2^BR)
@@ -63,39 +61,38 @@ void InitSPI(void)
     SPI1->CR1 |=    SPI_CR1_SPE;        // SPI enable
     SPI1->CR2 |=    SPI_CR2_RXNEIE;     // RX buffer not empty interrupt enable
     
-    ChipDeselectSPI();
+    DeselectChipSpi();
 }
-void TransmitSPI(uint16_t* buf, int num)
+void TransmitSpi(uint16_t* buf, int num)
 {
     transmit_buf = buf;
     to_transmit = num - 1;
     
-    ChipSelectSPI();
+    SelectChipSpi();
     
     SPI1->DR = transmit_buf[0];
     transmit_buf++;
     
     SPI1->CR2 |= SPI_CR2_TXEIE;     // TX buffer empty interrupt enable
 }
-void ReceiveSPI(uint16_t* buf, int num)
+void ReceiveSpi(uint16_t* buf, int num)
 {
     receive_buf = buf;
     to_receive = num;
-    received = false;
 }
-bool SPItransmitted(void)
+bool TransmittedSpi(void)
 {
     return ((SPI1->SR & SPI_SR_BSY) == 0);
 }
-bool SPIreceived(void)
+bool ReceivedSpi(void)
 {
-    return received;
+    return ((SPI1->SR & SPI_SR_BSY) == 0);
 }
-void ChipSelectSPI(void)
+void SelectChipSpi(void)
 {
-    PinReset(SPI_PORT, NSS_PIN);
+    ResetPin(SPI_NSS_PIN);
 }
-void ChipDeselectSPI(void)
+void DeselectChipSpi(void)
 {
-    PinSet(SPI_PORT, NSS_PIN);
+    SetPin(SPI_NSS_PIN);
 }
