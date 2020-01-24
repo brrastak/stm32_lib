@@ -1,8 +1,9 @@
 /*
-    1. Configure pins as alternate function push-pull (NSS only software)
-    2. Init RCC: RCC->APB2ENR |= RCC_APB2ENR_SPIxEN;
-    3. Enable interrupt
-    4. Call function InitSPI
+    1. Configure pins as alternate function push-pull
+    2. Define and configure SPI_NSS_PIN as push-pull (switching by software)
+    3. Init RCC: RCC->APB2ENR |= RCC_APB2ENR_SPIxEN;
+    4. Enable interrupt
+    5. Call function InitSpi
 */
 
 // STM32F103
@@ -14,14 +15,12 @@
 #ifndef __SPI_H__
 #define __SPI_H__
 
-void SPI1_IRQHandler(void);
-
-void InitSPI(void);
-void TransmitSPI(uint16_t* buf, int num);
-void ReceiveSPI(uint16_t* buf, int num);
-bool SPItransmitted(void);
-bool SPIreceived(void);
-void ChipSelectSPI(void);
-void ChipDeselectSPI(void);
+void InitSpi(void);
+void TransmitSpi(uint8_t* buf, int num);
+void ReceiveSpi(uint8_t* buf, int num);
+bool TransmittedSpi(void);
+bool ReceivedSpi(void);
+void SelectChipSpi(void);
+void DeselectChipSpi(void);
 
 #endif
