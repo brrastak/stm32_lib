@@ -18,6 +18,8 @@
 
 // Baud rate for USART->BRR register
 #define USART9600           0xEA6       // 9600 bit per second
+#define USART57600          0x271       // 57600 bit per second
+#define USART115200         0x138       // 115200 bit per second
 
 void USART2_IRQHandler(void);
 
