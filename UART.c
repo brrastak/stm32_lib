@@ -78,6 +78,9 @@ void TransmitUart(uint8_t* buf, int num)
 }
 void ReceiveUart(uint8_t* buf, int num)
 {
+    if (num == 0)
+        return;
+    
     receive_buf = buf;
     to_receive = num;
     received = false;
