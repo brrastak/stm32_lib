@@ -23,8 +23,6 @@
 #define USART115200         312         // 115200 bit per second
 #define USART460800         78          // 460800 bit per second
 
-void USART2_IRQHandler(void);
-
 void InitUart(void);
 void TransmitUart(uint8_t* buf, int num);
 void ReceiveUart(uint8_t* buf, int num);
