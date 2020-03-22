@@ -15,6 +15,8 @@
 #define PIN_MODE_10MHZ_OPP      0x01    // out push-pull; speed 10 MHz
 #define PIN_MODE_50MHZ_OPP      0x03    // out push-pull; speed 50 MHz
 
+#define PIN_MODE_2MHZ_OOD       0x06    // out open-drain; speed 2 MHz
+
 #define PIN_MODE_2MHZ_AFPP      0x0A    // alternate function push-pull; speed 2 MHz
 #define PIN_MODE_10MHZ_AFPP     0x09    // alternate function push-pull; speed 10 MHz
 #define PIN_MODE_50MHZ_AFPP     0x0B    // alternate function push-pull; speed 50 MHz
