@@ -5,7 +5,7 @@
 #include "main.h"
 #include "adc.h"
 
-void InitADC(void)
+void InitAdc(void)
 {
     // Calibration
     ADC1->CR2 |= ADC_CR2_ADON;
