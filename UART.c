@@ -93,3 +93,13 @@ bool ReceivedUart(void)
 {
     return received;
 }
+void WaitForTransmitUart(void)
+{
+    while (! transmitted)
+        ;
+}
+void WaitForReceiveUart(void)
+{
+    while (! received)
+        ;
+}
