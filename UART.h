@@ -28,5 +28,7 @@ void TransmitUart(uint8_t* buf, int num);
 void ReceiveUart(uint8_t* buf, int num);
 bool TransmittedUart(void);
 bool ReceivedUart(void);
+void WaitForTransmitUart(void);
+void WaitForReceiveUart(void);
 
 #endif
