@@ -5,6 +5,6 @@
 #define __ADC_H__
 
 // Init ADC
-void InitADC(void);
+void InitAdc(void);
 
 #endif
