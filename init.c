@@ -57,9 +57,9 @@ void InitGpio(void)
     // Remap SPI1
     AFIO->MAPR |= AFIO_MAPR_SPI1_REMAP;
     // Remap A15, B3, B4
-    AFIO->MAPR |=   AFIO_MAPR_SWJ_CFG_0 * 0 |
+    AFIO->MAPR |=   AFIO_MAPR_SWJ_CFG_2 * 0 |
                     AFIO_MAPR_SWJ_CFG_1 * 1 |
-                    AFIO_MAPR_SWJ_CFG_2 * 0;
+                    AFIO_MAPR_SWJ_CFG_0 * 0;
     
     // Debug LED
     SetGpioMode(LED_PIN, PIN_MODE_2MHZ_OPP);
