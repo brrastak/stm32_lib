@@ -35,6 +35,8 @@ void InitAdc(void)
                     ADC_CR1_EOCIE;              // interrupt enable for EOC
     ADC1->CR2 |=    ADC_CR2_EXTTRIG |           // extern event
                     ADC_CR2_ADON;
+    
+    ADC1->SMPR2 = 0x3fffffff;   // max measurement duration for channels 0-9
 }
 
 // ADC1 end of conversion interrupt
@@ -42,4 +44,18 @@ void ADC1_2_IRQHandler(void)
 {  
     if ((ADC1->SR | ADC_SR_EOC))
         ADCGetData(ADC1->DR);
+}
+
+uint32_t ReadAdc(int channel)
+{    
+    ADC1->SQR3 = channel;       // channel to read
+    
+    // Start convertion
+    ADC1->CR2 |= ADC_CR2_ADON;
+    
+    // wait for end of convertion
+    while ((ADC1->SR & ADC_SR_EOC) == 0)
+        ;
+    
+    return (ADC1->DR);
 }
