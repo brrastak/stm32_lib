@@ -192,6 +192,18 @@ void MoveToLine2(void)
     delay_us(DELAY2_US);
 }
 
+void MoveTo(int x, int y)   // start (0, 0)
+{
+    int addr = 0x80;
+    if (x > 15)
+        x = 15;
+    addr += x;
+    if (y > 0)
+        addr += 0x40;
+    WriteCommandByte(addr);
+    delay_us(DELAY2_US);
+}
+
 void MoveScreen(bool dir)
 {
     if (dir)
