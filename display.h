@@ -24,6 +24,7 @@
 void InitDisp(void);
 void ClrScr(void);          // wait at least 2ms after it
 void MoveToLine2(void);
+void MoveTo(int x, int y);  // start (0, 0)
 void MoveScreen(bool dir);  // true -> false <-
 void WriteChar(char);
 void WriteString(char * str, int n);
