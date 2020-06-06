@@ -5,8 +5,8 @@
     3. Call GetEncoderValue to find current value
 */
 
-// STM8S103F3
-#include "stm8s.h"
+// STM32F103
+#include "stm32f10x.h"
 
 // cstd
 #include <stdbool.h>
