@@ -1,8 +1,12 @@
 /*
-    1. Define A_PIN and B_PIN, configure as floating input
-    2. Call GetEncoder about every 1 ms to get its state
-    3. Call ValEncoder to find current value
+    1. Define encoder pins, configure as floating input
+    2. Create enc_t variables
+    2. Call CheckEncoder about every 1 ms to update its state
+    3. Call GetEncoderValue to find current value
 */
+
+// STM8S103F3
+#include "stm8s.h"
 
 // cstd
 #include <stdbool.h>
@@ -10,16 +14,29 @@
 #ifndef __ENCODER_H__
 #define __ENCODER_H__
 
-// Encoder number values
-#define INIT_VAL        1
-#define MIN_VAL         1
-#define MAX_VAL         8
 
-#define USE_MIN_MAX
+// Encoder
+typedef struct
+{
+    GPIO_TypeDef* a_port;
+    int a_pin;
+    GPIO_TypeDef* b_port;
+    int b_pin;
+    int prev_state;     // init by 0
+    int cur_val;        // don't care
+    int min_val;
+    int max_val;
+    int step;
+}
+enc_t;
 
-// Get encoder state, decode it and increase or decrease value
-void GetEncoder(void);
+
+// Update encoder state, decode it and increase or decrease value
+void CheckEncoder(enc_t*);
 // Return current value
-int ValueEncoder(void);
+int GetEncoderValue(enc_t*);
+// Set encoder value
+void SetEncoderValue(enc_t*, int value);
+
 
 #endif

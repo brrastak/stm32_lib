@@ -6,52 +6,54 @@
 #include "main.h"
 #include "gpio.h"
 
-// Local variables
-static int prev_state = 0;
-static int cur_state;
 
-static int value = INIT_VAL;
-
+// Data do decode encoder state
 static const int state_decode_table[2][2] =
 {   2, 3,
     1, 0
 };
 static const int dir_decode_table[4][4] =
-{   0,  1,  0, -1,
+{   0, -1,  0,  1,
     0,  0,  0,  0,
     0,  0,  0,  0,
     0,  0,  0,  0
 };
 
 // Read A and B pin values and translate into number (0-3)
-int read_pins(void);
+int read_pins(enc_t*);
 
-void GetEncoder(void)
+void CheckEncoder(enc_t* enc)
 {    
-    cur_state = read_pins();
+    int cur_state;
     
-    value += dir_decode_table[prev_state][cur_state];
-    prev_state = cur_state;
+    // Get current encoder state
+    cur_state = read_pins(enc);
     
-    #ifdef USE_MIN_MAX
+    // Change value if rotation detected
+    enc->cur_val += (dir_decode_table[enc->prev_state][cur_state])*(enc->step);
+    enc->prev_state = cur_state;
     
-    if (value < MIN_VAL)
-        value = MIN_VAL;
-    if (value > MAX_VAL)
-        value = MAX_VAL;
-    
-    #endif 
+    // Value limits checking
+    if (enc->cur_val < enc->min_val)
+        enc->cur_val = enc->min_val;
+    if (enc->cur_val > enc->max_val)
+        enc->cur_val = enc->max_val;
+
 }
-int ValueEncoder(void)
+int GetEncoderValue(enc_t* enc)
 {
-    return value;
+    return enc->cur_val;
 }
-int read_pins(void)
+void SetEncoderValue(enc_t* enc, int value)
+{
+    enc->cur_val = value;
+}
+int read_pins(enc_t* enc)
 {
     int A, B;
     
-    A = ( PinState(PORTPIN(A))) ? 1 : 0;
-    B = ( PinState(PORTPIN(B))) ? 1 : 0;
+    A = ( GetPinState(enc->a_port, enc->a_pin)) ? 1 : 0;
+    B = ( GetPinState(enc->b_port, enc->b_pin)) ? 1 : 0;
     
     return state_decode_table[A][B];
 }
