@@ -47,6 +47,8 @@ void InitInterrupt(void)
     NVIC_EnableIRQ(I2C2_EV_IRQn);
     // USART2
     NVIC_EnableIRQ(USART2_IRQn);
+    // EXTI
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 void InitGpio(void)
 {
