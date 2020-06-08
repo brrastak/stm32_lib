@@ -65,6 +65,20 @@ void InitTim2(void)
     TIM2->CCER  =   TIM_CCER_CC4E       * 1 |   // C4 out enable
                     TIM_CCER_CC4P       * 0;    // C4 active high
     TIM2->CCR4  = 20;                           // duty time = 50%
+    // External input
+    TIM2->CCMR1 =   TIM_CCMR1_CC1S_0    * 1 |   // channel 1 input on TI1
+                    TIM_CCMR1_CC1S_1    * 0 |
+                    TIM_CCMR1_IC1F_0    * 0 |   // input filter disable
+                    TIM_CCMR1_IC1F_1    * 0 |
+                    TIM_CCMR1_IC1F_2    * 0 |
+                    TIM_CCMR1_IC1F_3    * 0;
+    TIM2->CCER =    TIM_CCER_CC1P       * 0;    // rising edge capture
+    TIM2->SMCR =    TIM_SMCR_SMS_0      * 1 |   // external clock mode 1
+                    TIM_SMCR_SMS_1      * 1 |
+                    TIM_SMCR_SMS_2      * 1 |
+                    TIM_SMCR_TS_0       * 1 |   // TI1 input source
+                    TIM_SMCR_TS_1       * 0 |
+                    TIM_SMCR_TS_2       * 1;
     // Interrupt
     TIM2->DIER |= TIM_DIER_UIE;         // update interrupt enable
 }
