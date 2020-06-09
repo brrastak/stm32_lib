@@ -11,12 +11,12 @@
 
 /*
     have to define
-    DISP_RS_PORT, DISP_RS_PIN
-    DISP_E_PORT, DISP_E_PIN
-    DISP_D4_PORT, DISP_D4_PIN
-    DISP_D5_PORT, DISP_D5_PIN
-    DISP_D6_PORT, DISP_D6_PIN
-    DISP_D7_PORT, DISP_D7_PIN
+    DISP_RS_PIN
+    DISP_E_PIN
+    DISP_D4_PIN
+    DISP_D5_PIN
+    DISP_D6_PIN
+    DISP_D7_PIN
 */
 
 //#define I2C_DISP            // for using i2c
