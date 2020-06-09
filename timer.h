@@ -25,9 +25,5 @@ void delay_us(int time);    // 32000us max
 void EnableTim2(void);
 void DisableTim2(void);
 
-// SysTick timer interrupt
-void SysTick_Handler(void);
-// TIM2 update interrupt
-void TIM2_IRQHandler(void);
 
 #endif
