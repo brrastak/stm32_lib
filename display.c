@@ -52,7 +52,7 @@ inline void WriteNibble()
     else
         ResetPin(DISP_RS_PIN);
     if (nibble & 0x10)
-        PinSet(DISP_D4_PIN);
+        SetPin(DISP_D4_PIN);
     else
         ResetPin(DISP_D4_PIN);
     if (nibble & 0x20)
