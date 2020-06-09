@@ -29,6 +29,26 @@ void TIM2_IRQHandler(void)
     if ((counter == 0) /*&& State.pump_on*/)
         TIM2->CCR1 = 10;
 }
+// TIM2 capture interrupt
+void TIM2_IRQHandler(void)
+{   
+    static uint16_t prev_captured3, prev_captured4;
+    
+    if ((TIM2->SR & TIM_SR_CC4IF) != 0) {   // capture/compare 4 interrupt
+        
+        TIM2->SR &= ~TIM_SR_CC4IF;          // clear flag
+        
+        pitch_freq = TIM2->CCR4 - prev_captured4;
+        prev_captured4 = TIM2->CCR4;
+    }
+    if ((TIM2->SR & TIM_SR_CC3IF) != 0) {   // capture/compare 3 interrupt
+        
+        TIM2->SR &= ~TIM_SR_CC3IF;          // clear flag
+        
+        volume_freq = TIM2->CCR3 - prev_captured3;
+        prev_captured3 = TIM2->CCR3;
+    }
+}
 // TIM1 update interrupt
 void TIM1_UP_IRQHandler(void)
 {       
@@ -79,8 +99,33 @@ void InitTim2(void)
                     TIM_SMCR_TS_0       * 1 |   // TI1 input source
                     TIM_SMCR_TS_1       * 0 |
                     TIM_SMCR_TS_2       * 1;
+    // Input capture
+    TIM2->CCMR2 =   TIM_CCMR2_CC4S_0    * 1 |   // channel 4 input on TI4
+                    TIM_CCMR2_CC4S_1    * 0 |
+                    TIM_CCMR2_IC4F_0    * 0 |   // channel 4 input filter disable
+                    TIM_CCMR2_IC4F_1    * 0 |
+                    TIM_CCMR2_IC4F_2    * 0 |
+                    TIM_CCMR2_IC4F_3    * 0 |
+                    TIM_CCMR2_IC4PSC_0  * 1 |   // channel 4 prescaler = 8
+                    TIM_CCMR2_IC4PSC_1  * 1 |
+                    TIM_CCMR2_CC3S_0    * 1 |   // channel 3 input on TI3
+                    TIM_CCMR2_CC3S_1    * 0 |
+                    TIM_CCMR2_IC3F_0    * 0 |   // channel 3 input filter disable
+                    TIM_CCMR2_IC3F_1    * 0 |
+                    TIM_CCMR2_IC3F_2    * 0 |
+                    TIM_CCMR2_IC3F_3    * 0 |
+                    TIM_CCMR2_IC3PSC_0  * 1 |   // channel 3 prescaler = 8
+                    TIM_CCMR2_IC3PSC_1  * 1;
+    
+    TIM2->CCER =    TIM_CCER_CC4P       * 0 |   // channel 4 rising edge capture
+                    TIM_CCER_CC4E       * 1 |   // channel 4 capture input enable
+                    TIM_CCER_CC3P       * 0 |   // channel 3 rising edge capture
+                    TIM_CCER_CC3E       * 1;    // channel 3 capture input enable
     // Interrupt
     TIM2->DIER |= TIM_DIER_UIE;         // update interrupt enable
+    TIM2->DIER |=   //TIM_DIER_UIE |      // update interrupt enable
+                    TIM_DIER_CC4IE |    // capture/compare 4 interrupt enable
+                    TIM_DIER_CC3IE;     // capture/compare 3 interrupt enable
 }
 void SetTim2DutyTime(int duty_time)
 {
