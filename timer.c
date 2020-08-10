@@ -133,12 +133,14 @@ void SetTim2DutyTime(int duty_time)
 }
 void EnableTim2(void)
 {
-    TIM4->EGR = TIM_EGR_UG;     // update
-    TIM2->CR1 |= TIM_CR1_CEN;   // start
+    TIM4->EGR = TIM_EGR_UG;         // update
+    TIM2->CR1 |= TIM_CR1_CEN;       // start
+    TIM2->CCER |= TIM_CCER_CC1E;    // out enable
 }
 void DisableTim2(void)
 {
-    TIM2->CR1 &= ~TIM_CR1_CEN;  // stop
+    TIM2->CR1 &= ~TIM_CR1_CEN;      // stop
+    TIM2->CCER &= ~TIM_CCER_CC1E;   // out disable
 }
 void InitTim1(void)
 {
