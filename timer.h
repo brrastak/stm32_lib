@@ -14,6 +14,10 @@ extern volatile uint32_t sys_tick;
 
 // Init SysTick timer
 void InitSysTick(void);
+// Proceed SysTick value and reset counter
+bool IfDelayPassed(uint32_t &cnt, uint32_t delay_ms);
+// Reset counter
+void ResetCounter(uint32_t &cnt);
 // Init TIM2 for PWM generation
 void InitTim2(void);
 // Init TIM3 for periodical ADC reading
