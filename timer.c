@@ -66,6 +66,22 @@ void InitSysTick(void)
                     SysTick_CTRL_TICKINT_Msk   |    // interrupt enable
                     SysTick_CTRL_ENABLE_Msk;
 }
+// Proceed SysTick value and reset counter
+bool IfDelayPassed(uint32_t &cnt, uint32_t delay_ms)
+{
+    if ((sys_tick - cnt) > delay_ms) {
+        
+        cnt = sys_tick;
+        return true;
+    }
+    else
+        return false;
+}
+// Reset counter
+void ResetCounter(uint32_t &cnt)
+{
+    cnt = sys_tick;
+}
 void InitTim2(void)
 {
     // Timer
