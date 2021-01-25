@@ -38,11 +38,11 @@ inline void WriteNibble()
 #ifdef I2C_DISP
 
     nibble |= DISP_E_MASK;
-    I2CWrite(I2C_DISP_ADDR, nibble, 1);
+    TransmitI2c(I2C_DISP_ADDR, &nibble, 1);
     
     delay_us(DELAY1_US);
     nibble &= ~DISP_E_MASK;
-    I2CWrite(I2C_DISP_ADDR, nibble, 1);
+    TransmitI2c(I2C_DISP_ADDR, &nibble, 1);
     delay_us(DELAY1_US);
     
 #else
