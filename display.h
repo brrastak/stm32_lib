@@ -35,6 +35,7 @@ void WriteDataNibble(uint8_t);
 void WriteCommandByte(uint8_t);
 void WriteDataByte(uint8_t);
 
+// Have to send any command to apply backlight state
 void BacklightOn(void);
 void BacklightOff(void);
 
