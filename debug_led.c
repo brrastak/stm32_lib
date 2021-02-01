@@ -14,5 +14,5 @@ void TurnLedOff(void)
 }
 void BlinkLed(void)
 {
-    SwitchPin(LED_PIN);
+    TogglePin(LED_PIN);
 }
