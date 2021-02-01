@@ -32,7 +32,7 @@ void SetGpioMode(GPIO_TypeDef* port, int pin, int mode);
 bool GetPinState(GPIO_TypeDef* port, int pin);
 void SetPin(GPIO_TypeDef* port, int pin);
 void ResetPin(GPIO_TypeDef* port, int pin);
-void SwitchPin(GPIO_TypeDef* port, int pin);
+void TogglePin(GPIO_TypeDef* port, int pin);
 void SetMulPin(GPIO_TypeDef* port, int mask);
 void ResetMulPin(GPIO_TypeDef* port, int mask);
 
