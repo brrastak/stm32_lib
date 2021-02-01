@@ -23,7 +23,7 @@ inline void ResetPin(GPIO_TypeDef* port, int pin)
 {
     port->BSRR = (1 << (pin+16));
 }
-inline void SwitchPin(GPIO_TypeDef* port, int pin)
+inline void TogglePin(GPIO_TypeDef* port, int pin)
 {
     if (GetPinState(port, pin))
         ResetPin(port, pin);
