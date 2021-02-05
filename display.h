@@ -39,6 +39,9 @@ void WriteDataByte(uint8_t);
 void BacklightOn(void);
 void BacklightOff(void);
 
+// Display two-lines message
+void Message(char* ln1, char* ln2);
+
 // japanese
 #define a_ "\261"
 #define i_ "\262"
