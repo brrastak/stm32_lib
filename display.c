@@ -244,3 +244,18 @@ inline void BacklightOff(void)
     nibble &= ~DISP_BACKLIGHT_MASK;
 }
 
+// Display two-lines message
+void Message(char* ln1, char* ln2)
+{
+    // Clear screen
+    ClrScr();
+    delay_ms(2);
+    
+    // Line 1
+    WriteLine(ln1);
+    
+    // Line 2
+    MoveToLine2();
+    WriteLine(ln2);
+}
+
