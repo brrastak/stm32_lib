@@ -11,30 +11,30 @@ void SetGpioMode(GPIO_TypeDef* port, int pin, int mode)
     else
         port->CRL = (port->CRL & ~(0x0f << pin*4)) | (mode << pin*4);
 }
-inline bool GetPinState(GPIO_TypeDef* port, int pin)
+bool GetPinState(GPIO_TypeDef* port, int pin)
 {
     return ((port->IDR & (1 << pin)) != 0);
 }
-inline void SetPin(GPIO_TypeDef* port, int pin)
+void SetPin(GPIO_TypeDef* port, int pin)
 {
     port->BSRR = (1 << pin);
 }
-inline void ResetPin(GPIO_TypeDef* port, int pin)
+void ResetPin(GPIO_TypeDef* port, int pin)
 {
     port->BSRR = (1 << (pin+16));
 }
-inline void TogglePin(GPIO_TypeDef* port, int pin)
+void TogglePin(GPIO_TypeDef* port, int pin)
 {
     if (GetPinState(port, pin))
         ResetPin(port, pin);
     else
         SetPin(port, pin);
 }
-inline void SetMulPin(GPIO_TypeDef* port, int mask)
+void SetMulPin(GPIO_TypeDef* port, int mask)
 {
     port->BSRR = (mask & 0x0ffff);
 }
-inline void ResetMulPin(GPIO_TypeDef* port, int mask)
+void ResetMulPin(GPIO_TypeDef* port, int mask)
 {
     port->BSRR = (mask & 0x0ffff) << 16;
 }
