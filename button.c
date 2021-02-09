@@ -43,4 +43,15 @@ bool WasPressed(btn_t* butn)
     else
         return false;
 }
+// Get was_unpressed button state and reset it
+bool WasUnpressed(btn_t* butn)
+{
+    if (butn->was_unpressed == true) {
+        butn->was_unpressed = false;
+        return true;
+    }
+    else
+        return false;
+}
+
 
