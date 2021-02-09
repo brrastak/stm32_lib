@@ -34,5 +34,7 @@ void CheckBtn(btn_t*);
 bool IsPressed(btn_t*);
 // Get was_pressed button state and reset it
 bool WasPressed(btn_t*);
+// Get was_unpressed button state and reset it
+bool WasUnpressed(btn_t*);
 
 #endif
