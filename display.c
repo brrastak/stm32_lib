@@ -238,10 +238,12 @@ void WriteLine(char * str)
 inline void BacklightOn(void)
 {
     nibble |= DISP_BACKLIGHT_MASK;
+    TransmitI2c(I2C_DISP_ADDR, &nibble, 1);
 }
 inline void BacklightOff(void)
 {
     nibble &= ~DISP_BACKLIGHT_MASK;
+    TransmitI2c(I2C_DISP_ADDR, &nibble, 1);
 }
 
 // Display two-lines message
