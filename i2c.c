@@ -6,8 +6,6 @@
 
 // user
 #include "i2c.h"
-#include "main.h"
-#include "gpio.h"
 
 // Local variables
 // Data
@@ -19,8 +17,8 @@ static uint8_t addr;
 static int to_transmit = 0;
 //static int to_receive = 0;
 // Flags
-static volatile bool transmitted = true;
-static volatile bool received = true;
+static bool transmitted = true;
+static bool received = true;
 
 // I2C interrupt
 void I2C2_EV_IRQHandler(void)
