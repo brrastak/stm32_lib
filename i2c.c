@@ -9,16 +9,17 @@
 
 // Local variables
 // Data
-static uint8_t* transmit_buf;
+uint8_t* transmit_buf;
 //static uint8_t* receive_buf;
 // Data transmit address
-static uint8_t addr;
+uint8_t addr;
 // Number of data
-static int to_transmit = 0;
-//static int to_receive = 0;
+int to_transmit = 0;
+//int to_receive = 0;
 // Flags
-static bool transmitted = true;
-static bool received = true;
+volatile bool transmitted = true;
+volatile bool received = true;
+
 
 // I2C interrupt
 void I2C2_EV_IRQHandler(void)
