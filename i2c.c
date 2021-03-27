@@ -84,7 +84,8 @@ void TransmitI2c(uint8_t i2c_addr, uint8_t* buf, int num)
 }
 bool TransmittedI2c(void)
 {
-    return transmitted;
+    // After transmitting the last data byte should wait for stop condition
+    return (transmitted && ((I2C2->CR1 & I2C_CR1_STOP) == 0));
 }
 bool ReceivedI2c(void)
 {
@@ -92,7 +93,7 @@ bool ReceivedI2c(void)
 }
 void WaitForTransmitI2c(void)
 {
-    while (! transmitted)
+    while (! TransmittedI2c())
         ;
 }
 void WaitForReceiveI2c(void)
