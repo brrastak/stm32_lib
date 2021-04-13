@@ -47,6 +47,12 @@ int GetEncoderValue(enc_t* enc)
 void SetEncoderValue(enc_t* enc, int value)
 {
     enc->cur_val = value;
+    
+    // Value limits checking
+    if (enc->cur_val < enc->min_val)
+        enc->cur_val = enc->min_val;
+    if (enc->cur_val > enc->max_val)
+        enc->cur_val = enc->max_val;
 }
 int read_pins(enc_t* enc)
 {
