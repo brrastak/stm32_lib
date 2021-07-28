@@ -43,6 +43,8 @@ void InitInterrupt(void)
     //NVIC_EnableIRQ(TIM3_IRQn);
     // ADC1
     //NVIC_EnableIRQ(ADC1_2_IRQn);
+    // SPI2
+    NVIC_EnableIRQ(SPI2_IRQn);
     // I2C1
     NVIC_EnableIRQ(I2C2_EV_IRQn);
     // USART2
