@@ -51,6 +51,8 @@ void InitInterrupt(void)
     NVIC_EnableIRQ(USART2_IRQn);
     // EXTI
     NVIC_EnableIRQ(EXTI15_10_IRQn);
+    // DMA1 channel 2
+    NVIC_EnableIRQ(DMA1_Channel2_IRQn);
 }
 void InitGpio(void)
 {
