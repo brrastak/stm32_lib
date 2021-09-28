@@ -10,6 +10,7 @@
 // Pin modes
 #define PIN_MODE_IANALOG        0x00    // in analog
 #define PIN_MODE_IFLOAT         0x04    // in floating
+#define PIN_MODE_IPULL          0x08    // in pull-up/pull-down (depending on ODR value)
 
 #define PIN_MODE_2MHZ_OPP       0x02    // out push-pull; speed 2 MHz
 #define PIN_MODE_10MHZ_OPP      0x01    // out push-pull; speed 10 MHz
