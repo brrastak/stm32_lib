@@ -59,7 +59,7 @@ void InitTim2(void)
 }
 void EnableTim2(void)
 {
-    TIM4->EGR = TIM_EGR_UG;         // update
+    //TIM2->EGR = TIM_EGR_UG;         // update
     TIM2->CR1 |= TIM_CR1_CEN;       // start
     TIM2->CCER |= TIM_CCER_CC1E;    // out enable
 }
